@@ -67,6 +67,13 @@
 
             <div class="part">Switcher</div>
             <div class="led green">ATEM</div>
+
+            <div class="part">Mode</div>
+            <div class="led">
+              <select ng-options="mode.name for mode in CONTROL_MODES track by mode.id" 
+                  ng-model="mode" ng-change="changeMode()"></select>
+            </div>
+            
           </div>
         </td>
       </tr>
@@ -75,7 +82,7 @@
         <td colspan="3">
           <div class="box">
             <div class="title">
-              Main M/E
+              {{ mode.name }}
             </div>
 
             <div class="section">
@@ -97,7 +104,7 @@
         </td>
       </tr>
 
-      <tr>
+      <tr ng-show="mode.id==0">
         <td colspan="3">
           <div class="box">
             <div class="title">

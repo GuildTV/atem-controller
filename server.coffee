@@ -10,6 +10,7 @@ for switcher in config.switchers
   atem.event.setMaxListeners(5)
   atem.connect(switcher.addr, switcher.port)
   switchers.push(atem)
+  console.log("Using ATEM: "+switcher.addr)
 
 app.use(bodyParser.json())
 app.use('/', express.static(__dirname + '/public'))
@@ -27,6 +28,14 @@ app.get('/api/switchersStatePolling', (req, res) ->
     atem.once('stateChanged', (err, state) ->
       res.end(JSON.stringify((atem.state for atem in switchers)))
     )
+)
+
+app.post('/api/changeAuxInput', (req, res) ->
+  device = req.body.device
+  aux  = req.body.aux
+  input  = req.body.input
+  switchers[device].changeAuxInput(aux, input)
+  res.send('success')
 )
 
 app.post('/api/changePreviewInput', (req, res) ->
