@@ -16,7 +16,7 @@ gulp.task 'compile-sass', ->
     .pipe sass()
     .pipe gulp.dest('public/css')
 
-gulp.task 'watch', ->
+gulp.task 'watch', ['default'], ->
   gulp.watch 'src/coffee/**/*.coffee', ['compile-coffee']
   gulp.watch 'src/scss/**/*.scss', ['compile-sass']
 
